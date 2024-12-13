@@ -10,7 +10,7 @@ public class ContactService(IContactRepository contactRepository) : IContactServ
     private readonly IContactRepository _contactRepository = contactRepository;
     private List<Contact> _contacts = [];
 
-    public bool CreateContact(Contact contact)
+    public bool AddContact(Contact contact)
     {
         try
         {

@@ -25,7 +25,11 @@ public class ContactRepository(IContactFileService contactFileService) : IContac
 
     public List<Contact> GetListFromFile()
     {
-        var json = _contactFileService.LoadFromFile();
-        return JsonSerializer.Deserialize<List<Contact>>(json) ?? [];
+        try
+        {
+            var json = _contactFileService.LoadFromFile();
+            return JsonSerializer.Deserialize<List<Contact>>(json) ?? [];
+        }
+        catch { return []; }       
     }
 }
