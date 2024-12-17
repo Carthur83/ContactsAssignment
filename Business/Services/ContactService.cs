@@ -34,6 +34,8 @@ public class ContactService(IContactRepository contactRepository) : IContactServ
 
     public Contact GetContactById(string id)
     {
-        return _contacts.FirstOrDefault(x => x.Id == id)!;
+        _contacts = _contactRepository.GetListFromFile();
+        var contact = _contacts.FirstOrDefault(x => x.Id == id)!;
+        return contact;
     }
 }
