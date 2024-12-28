@@ -20,7 +20,7 @@ public class ContactService_Tests
     public void AddContact_ShouldReturnTrue_WhenContactIsAddedSuccessfully()
     {
         // arrange
-        var contact = new Contact { FirstName = "Test", Email = "test@domain.com"};
+        var contact = new Contact { FirstName = "Test", Email = "test@domain.com" };
 
         _contactRepositoryMock
             .Setup(x => x.SaveListToFile(It.IsAny<List<Contact>>()))
@@ -43,7 +43,7 @@ public class ContactService_Tests
             new Contact { FirstName = "Test", Email = "test@domain.com" },
             new Contact { FirstName = "Test2", Email = "test2@domain.com" }
         ];
-        
+
         _contactRepositoryMock
             .Setup(x => x.GetListFromFile())
             .Returns(contacts);
@@ -66,7 +66,7 @@ public class ContactService_Tests
         [
             new Contact { Id = id1, FirstName = "Test", Email = "test@domain.com" }
         ];
-        
+
         _contactRepositoryMock
             .Setup(x => x.GetListFromFile())
             .Returns(contacts);
@@ -76,6 +76,58 @@ public class ContactService_Tests
 
         // assert
         Assert.Equal(id1, result.Id);
+    }
+
+    [Fact]
+    public void DeleteContact_ShouldDeleteContactFromListById_AndReturnTrueWhenSuccessful()
+    {
+        // arrange
+        var id1 = Guid.NewGuid().ToString();
+        var id2 = Guid.NewGuid().ToString();
+        List<Contact> contacts =
+       [
+           new Contact { Id = id1, FirstName = "Test", Email = "test@domain.com" },
+           new Contact { Id = id2, FirstName = "Test2", Email = "test2@domain.com" }
+       ];
+        _contactRepositoryMock
+            .Setup(x => x.GetListFromFile())
+            .Returns(contacts);
+
+        // act
+        var result = _contactService.DeleteContact(id1);
+
+        // assert
+        Assert.True(result);
+        Assert.Single(contacts);
+    }
+
+    [Fact]
+    public void UpdateContact_ShouldReturnTrueWhenSuccessful()
+    {
+        // arrange
+        var id1 = Guid.NewGuid().ToString();
+        var id2 = Guid.NewGuid().ToString();
+        List<Contact> contacts =
+       [
+           new Contact { Id = id1, FirstName = "Test", Email = "test@domain.com" },
+           new Contact { Id = id2, FirstName = "Test2", Email = "test2@domain.com" }
+       ];
+
+        var updatedContact = new Contact { Id = id1, FirstName = "Updated", Email = "test@domain.com" };
+        _contactRepositoryMock
+            .Setup(x => x.GetListFromFile())
+            .Returns(contacts); ;
+
+        _contactRepositoryMock
+            .Setup(x => x.SaveListToFile(It.IsAny<List<Contact>>()))
+            .Returns(true);
+
+        // act
+        var result = _contactService.UpdateContact(updatedContact);
+
+        // assert
+        Assert.True(result);
+        Assert.Equal("Updated", contacts[0].FirstName);
     }
 }
 

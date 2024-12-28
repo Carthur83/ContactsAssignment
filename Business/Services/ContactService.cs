@@ -47,7 +47,7 @@ public class ContactService(IContactRepository contactRepository) : IContactServ
         }
 
         _contacts = _contactRepository.GetListFromFile();
-        var result =_contacts.RemoveAll(x => x.Id == id);
+        var result = _contacts.RemoveAll(x => x.Id == id);
 
         if (result > 0)
         {
@@ -63,16 +63,13 @@ public class ContactService(IContactRepository contactRepository) : IContactServ
 
         if (contact == null) { return false; }
 
-        foreach (var item in _contacts)
-        {
-            contact.FirstName = updatedContact.FirstName;
-            contact.LastName = updatedContact.LastName;
-            contact.Email = updatedContact.Email;
-            contact.PhoneNumber = updatedContact.PhoneNumber;
-            contact.Street = updatedContact.Street;
-            contact.ZipCode = updatedContact.ZipCode;
-            contact.City = updatedContact.City;
-        }
+        contact.FirstName = updatedContact.FirstName;
+        contact.LastName = updatedContact.LastName;
+        contact.Email = updatedContact.Email;
+        contact.PhoneNumber = updatedContact.PhoneNumber;
+        contact.Street = updatedContact.Street;
+        contact.ZipCode = updatedContact.ZipCode;
+        contact.City = updatedContact.City;
 
         _contactRepository.SaveListToFile(_contacts);
         return true;
