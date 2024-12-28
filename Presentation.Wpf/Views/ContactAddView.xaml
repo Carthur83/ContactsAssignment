@@ -6,54 +6,83 @@
              xmlns:local="clr-namespace:Presentation.Wpf.Views"
              xmlns:viewmodels="clr-namespace:Presentation.Wpf.ViewModels"
              d:DataContext="{d:DesignInstance Type=viewmodels:ContactAddViewModel}"
-             mc:Ignorable="d" 
-             Background="LightGray"
-             d:DesignHeight="500" d:DesignWidth="350">
-    <Grid Margin="20" >
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-        </Grid.RowDefinitions>
+             mc:Ignorable="d"
+             d:DesignHeight="600" d:DesignWidth="500">
+    
+    <Border Background="White" CornerRadius="0 0 25 25">
+        <Grid Margin="15" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="0*"/>
-            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Row="0" Style="{StaticResource Headline}" Text="Add New Contact" Margin="0 15 0 0"/>
 
-            <TextBlock Grid.Column="1" Text="Add New Contact" FontSize="20" FontWeight="Medium" HorizontalAlignment="Center" />
-            <Button Grid.Column="0" Padding="8 6" Content="&#xE72B;" Background="White" FontFamily="Segoe MDL2 Assets" Command="{Binding GoToContactListCommand}" />
+            <Grid Grid.Row="1" Margin="0 25 0 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Margin="0 0 10 0">
+                    <TextBlock  Text="First Name" Style="{StaticResource LabelText}"/>
+                    <TextBox Text="{Binding Contact.FirstName}" Style="{StaticResource InputBox}"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Margin="10 0 0 0">
+                    <TextBlock  Text="Last Name" Style="{StaticResource LabelText}" />
+                    <TextBox Text="{Binding Contact.LastName}" Style="{StaticResource InputBox}"/>
+                </StackPanel>
+            </Grid>
+
+            <StackPanel Grid.Row="2" Margin="0 20 0 0">
+                <TextBlock  Text="Email" Style="{StaticResource LabelText}"/>
+                <TextBox Text="{Binding Contact.Email}" Style="{StaticResource InputBox}"/>
+            </StackPanel>
+
+            <StackPanel Grid.Row="3" Margin="0 20 0 0">
+                <TextBlock  Text="Phone Number" Style="{StaticResource LabelText}"/>
+                <TextBox Text="{Binding Contact.PhoneNumber}" Style="{StaticResource InputBox}"/>
+            </StackPanel>
+
+            <StackPanel Grid.Row="4" Margin="0 20 0 0">
+                <TextBlock Text="Street" Style="{StaticResource LabelText}"/>
+                <TextBox Text="{Binding Contact.Street}" Style="{StaticResource InputBox}"/>
+            </StackPanel>
+
+            <Grid Grid.Row="5" Margin="0 20 0 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Margin="0 0 10 0">
+                    <TextBlock Text="Zip Code" Style="{StaticResource LabelText}"/>
+                    <TextBox Text="{Binding Contact.ZipCode}" Style="{StaticResource InputBox}"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Margin="10 0 0 0">
+                    <TextBlock Text="City" Style="{StaticResource LabelText}"/>
+                    <TextBox Text="{Binding Contact.City}" Style="{StaticResource InputBox}"/>
+                </StackPanel>
+            </Grid>
+
+            <Grid Grid.Row=" 6" Margin="0 60 0 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1.5*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Column="0" Content="ADD" Style="{StaticResource StandardButton}" Command="{Binding AddContactCommand}"/>
+                <Button Grid.Column="1" Margin="20 0" Content="CANCEL" Style="{StaticResource CancelButton}" Command="{Binding GoToContactListCommand}"/>
+            </Grid>
+
         </Grid>
-
-
-        <StackPanel Grid.Row="1" Margin="0 20 0 0">
-            <TextBlock Text="First Name"/>
-            <TextBox Text="{Binding Contact.FirstName}" Margin="0 0 0 10" Padding="4" />
-
-            <TextBlock Text="Last Name"/>
-            <TextBox Text="{Binding Contact.LastName}" Margin="0 0 0 10" Padding="4" />
-
-            <TextBlock Text="Email"/>
-            <TextBox Text="{Binding Contact.Email}" Margin="0 0 0 10" Padding="4"/>
-
-            <TextBlock Text="Phone Number"/>
-            <TextBox Text="{Binding Contact.PhoneNumber}" Margin="0 0 0 10" Padding="4"/>
-
-            <TextBlock Text="Street"/>
-            <TextBox Text="{Binding Contact.Street}" Margin="0 0 0 10" Padding="4"/>
-
-            <TextBlock Text="Zip Code"/>
-            <TextBox Text="{Binding Contact.ZipCode}" Margin="0 0 0 10" Padding="4"/>
-
-            <TextBlock Text="City"/>
-            <TextBox Text="{Binding Contact.City}" Margin="0 0 0 0" Padding="4"/>
-        </StackPanel>
-
-
-        <Button Grid.Row="3" Padding="5" Content="Add" Margin="0 0 0 10" Background="White" Command="{Binding AddContactCommand}"/>
-
-    </Grid>
+    </Border>
 </UserControl>

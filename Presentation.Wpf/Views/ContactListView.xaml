@@ -7,49 +7,55 @@
              xmlns:models="clr-namespace:Business.Models;assembly=Business"
              xmlns:viewmodels="clr-namespace:Presentation.Wpf.ViewModels"
              d:DataContext="{d:DesignInstance Type=viewmodels:ContactListViewModel}"
-             mc:Ignorable="d" 
-             Background="LightGray"
-             d:DesignHeight="500" d:DesignWidth="350">
-    <Grid Margin="20">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+             mc:Ignorable="d"
+             d:DesignHeight="600" d:DesignWidth="500">
 
-        <Grid Grid.Row="0" Margin="0 15">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="0*"/>
-            </Grid.ColumnDefinitions>
+    <Border Background="White" CornerRadius="0 0 25 25">
+        <Grid Margin="15">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
 
-            <TextBlock Grid.Column="1" Text="All Contacts" FontSize="20" FontWeight="Medium" HorizontalAlignment="Center" />
-            <Button Grid.Column="0" Padding="8 6" Content="&#xE72B;" FontFamily="Segoe MDL2 Assets" Command="{Binding GoToContactAddCommand}" Background="White"/>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="0*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="1" Margin="0 15 0 15" Text="All Contacts" Style="{StaticResource Headline}"/>
+            </Grid>
+
+            <ListView Grid.Row="1" ItemsSource="{Binding Contacts}"  HorizontalContentAlignment="Stretch">
+                <ListView.ItemTemplate>
+                    <DataTemplate DataType="models:Contact">
+                        <Grid Background="#4891c9">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Grid.Column="0" Orientation="Horizontal">
+                                <TextBlock Text="&#xE77B;" FontFamily="Segoe MDL2 Assets" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5" Foreground="LightGray" FontSize="16" FontWeight="Medium"/>
+                                <TextBlock Text="{Binding FirstName}" FontSize="16" Foreground="LightGray" VerticalAlignment="Center" Margin="0 0 4 0"/>
+                                <TextBlock Text="{Binding LastName}" FontSize="16" Foreground="LightGray" VerticalAlignment="Center"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                <Button Style="{StaticResource DetailsButton}" CommandParameter="{Binding .}"              
+                                 Command="{Binding DataContext.GoToContactDetailsCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
+                            </StackPanel>
+
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <StackPanel Grid.Row="2" Margin="60 40 60 20">
+                <Button Style="{StaticResource StandardButton}" Content="Add New Contact" Command="{Binding GoToContactAddCommand}"/>
+            </StackPanel>
         </Grid>
-
-        <ListView Grid.Row="1" ItemsSource="{Binding Contacts}"  HorizontalContentAlignment="Stretch">
-            <ListView.ItemTemplate>
-                <DataTemplate DataType="models:Contact">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="auto"/>
-                        </Grid.ColumnDefinitions>
-
-                        <StackPanel Grid.Column="0" Orientation="Horizontal">
-                            <TextBlock Text="{Binding FirstName}" VerticalAlignment="Center"/>
-                            <TextBlock Text=" "/>
-                            <TextBlock Text="{Binding LastName}" VerticalAlignment="Center"/>
-                        </StackPanel>
-
-                        <StackPanel Grid.Column="1" Orientation="Horizontal">
-                            <Button CommandParameter="{Binding .}" Content="Details" Command="{Binding DataContext.GoToContactDetailsCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
-                        </StackPanel>
-
-                    </Grid>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-
-    </Grid>
+    </Border>
 </UserControl>

@@ -28,10 +28,10 @@ public partial class ContactUpdateViewModel(IServiceProvider serviceProvider, IC
     }
 
     [RelayCommand]
-    public void GoToDetails()
+    public void GoToContactList()
     {
         var mainViewModel = _serviceProvider.GetRequiredService<MainViewModel>();
-        mainViewModel.CurrentViewModel = _serviceProvider.GetRequiredService<ContactDetailsViewModel>();
+        mainViewModel.CurrentViewModel = _serviceProvider.GetRequiredService<ContactListViewModel>();
     }
 
 }
